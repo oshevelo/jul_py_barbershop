@@ -5,8 +5,7 @@ import sys
 
 
 
-
-
+#test
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'barbershop.settings')
     try:
