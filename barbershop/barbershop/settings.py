@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
+    'cart',
 
     'jet',
     'rest_framework',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
