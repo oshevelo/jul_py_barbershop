@@ -1,13 +1,15 @@
 from django.contrib import admin
-from .models import Cart
+from .models import Cart, CartItem
 
 # Register your models here.
 
 class CartAdmindmin(admin.ModelAdmin):
-    fieldsets = [
-        ('None', {'fields': ['cart_count', 'cart_pub_date']})
-    ]
-    list_display = ('cart_count', 'cart_pub_date')
+    list_display = ('id', 'user', 'cart_pub_date')
 
 
 admin.site.register(Cart, CartAdmindmin)
+
+class CartItemAdmindmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(CartItem, CartItemAdmindmin)
