@@ -34,7 +34,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
+    'shipment.apps.ShipmentConfig',
     'novaposhta',
+
 
     'jet',
     'rest_framework',
