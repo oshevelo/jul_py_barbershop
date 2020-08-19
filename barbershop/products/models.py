@@ -17,9 +17,9 @@ class Catalog(models.Model):
         return self.name
 
 
-class Products(models.Model):
+class Product(models.Model):
     """products and prices"""
-    cataloges = models.ForeignKey(Catalog,  on_delete=models.CASCADE)
+    cataloge = models.ForeignKey(Catalog,  on_delete=models.CASCADE)
     name = models.CharField("Products", max_length=200)
     slug = models.SlugField(max_length=200, db_index=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
