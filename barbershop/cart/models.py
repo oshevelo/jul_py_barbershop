@@ -1,15 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
+from apps_generic.whodidit.models import WhoDidIt
 
 # Create your models here.
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    cart_pub_date = models.DateTimeField('date published')
+class Cart(WhoDidIt):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    pub_date = models.DateTimeField('date published')
 
-class CartItem(models.Model):
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
+    def __str__(self):
+        return self.Meta.verbose_name
+
+class CartItem(WhoDidIt):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     sum = models.IntegerField()
     count = models.PositiveSmallIntegerField(default=1)
 
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
+    def __str__(self):
+        return self.Meta.verbose_name
