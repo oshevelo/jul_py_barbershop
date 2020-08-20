@@ -34,11 +34,18 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
+
     'shipment.apps.ShipmentConfig',
     'novaposhta',
 
+    'blog.apps.BlogConfig',
+    'cart',
+    'apps_generic.whodidit',
+
 
     'jet',
+    'taggit',
+    'taggit_serializer',
     'rest_framework',
 
     'django.contrib.admin',
@@ -46,10 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
+    'apps_generic.whodidit.middleware.RequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
