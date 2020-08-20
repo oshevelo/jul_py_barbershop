@@ -7,7 +7,7 @@ class Payment(models.Model):
     description = models.CharField(max_length=128, blank=True)
     buyer = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
     def __str__(self):
