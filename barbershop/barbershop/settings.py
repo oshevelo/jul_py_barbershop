@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
     'cart',
+    'apps_generic.whodidit',
 
     'jet',
     'rest_framework',
