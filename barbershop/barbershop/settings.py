@@ -150,5 +150,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
-from local  import *
+from .local import *
 
