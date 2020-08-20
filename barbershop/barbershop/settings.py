@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '6d@u)!x*^lnm-1p1izodro4y#hnz54dh**pd^v*b3#d-f9lgjz'
+NOVA_POSHTA_API_KEY = 'ea5b046bca0d849f9483d1182ba0f160'  #to update 13.08.2021
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,9 +34,14 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
+
+    'shipment.apps.ShipmentConfig',
+    'novaposhta',
+
     'blog.apps.BlogConfig',
     'cart',
     'apps_generic.whodidit',
+
 
     'jet',
     'taggit',
