@@ -9,7 +9,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
-
 class TaggedArticleViewSet(viewsets.ModelViewSet):
     queryset = ArticleTag.objects.all()
     serializer_class = ArticleTagSerializer
@@ -18,5 +17,3 @@ class TaggedArticleViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-

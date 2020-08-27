@@ -34,20 +34,15 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'payments',
     'products.apps.ProductsConfig',
-
     'shipment.apps.ShipmentConfig',
     'novaposhta',
-
     'blog.apps.BlogConfig',
     'cart',
     'apps_generic.whodidit',
-
-
     'jet',
     'taggit',
     'taggit_serializer',
     'rest_framework',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -95,6 +90,7 @@ WSGI_APPLICATION = 'barbershop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
         'NAME': '',
         'USER': '',
         'PASSWORD': '',
@@ -151,4 +147,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
 from .local import *
-
