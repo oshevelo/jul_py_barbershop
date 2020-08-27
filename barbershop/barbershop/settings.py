@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'shipment.apps.ShipmentConfig',
     'novaposhta',
     'blog.apps.BlogConfig',
-    # 'cart',
+    'cart',
     'apps_generic.whodidit',
-
     'jet',
     'taggit',
     'taggit_serializer',
@@ -92,9 +91,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'barbershop',
-        'USER': 'barbershop',
-        'PASSWORD': 'barbershop',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': 5432,
     }
@@ -147,5 +146,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
-# from local  import *
-
+from .local import *
