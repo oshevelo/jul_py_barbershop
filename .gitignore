@@ -8,7 +8,7 @@ __pycache__/
 .idea/
 Eshop/.DS_Store
 static/
-
+local.py
 # C extensions
 *.so
 
