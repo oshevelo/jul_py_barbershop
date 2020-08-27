@@ -1,5 +1,7 @@
 Django==2.2.0
 django-jet==1.0.8
 djangorestframework==3.10.3
-django-taggit
+django-taggit==1.3.0
+django-taggit-serializer==0.1.7
 django-novaposhta
+

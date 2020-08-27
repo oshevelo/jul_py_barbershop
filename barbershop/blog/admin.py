@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, ArticleTag, TaggedArticle
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -19,4 +19,16 @@ class ArticleAdmin(admin.ModelAdmin):
         return u", ".join(o.name for o in obj.tags.all())
 
 
+class TaggedArticleInline(admin.StackedInline):
+    model = TaggedArticle
+
+class TagAdmin(admin.ModelAdmin):
+    inlines = [TaggedArticleInline]
+    list_display = ["name", "slug"]
+    ordering = ["name", "slug"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ["name"]}
+
+
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(ArticleTag, TagAdmin)
