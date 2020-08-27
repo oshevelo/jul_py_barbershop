@@ -10,30 +10,4 @@ class Migration(migrations.Migration):
         ('products', '0006_merge_20200820_2042'),
     ]
 
-    operations = [
-        migrations.CreateModel(
-            name='Product',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('hair_cut', 'Hair Cut'), ('product', 'Product')], default='product', max_length=50)),
-                ('name', models.CharField(max_length=200, verbose_name='Product')),
-                ('slug', models.SlugField(max_length=200)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('description', models.TextField(blank=True)),
-                ('stock', models.PositiveIntegerField()),
-                ('available', models.BooleanField(default=True)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('catalog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.Catalog')),
-            ],
-            options={
-                'verbose_name': 'Product',
-                'verbose_name_plural': 'Products',
-                'ordering': ('name',),
-                'index_together': {('id', 'slug')},
-            },
-        ),
-        migrations.DeleteModel(
-            name='Products',
-        ),
-    ]
+    operations = []
