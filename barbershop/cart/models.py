@@ -14,8 +14,10 @@ class Cart(WhoDidIt):
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
 
-    def __str__(self):
-        return self.Meta.verbose_name
+    #TODO made correct __str__
+
+    # def __str__(self):
+    #     return self.Meta.verbose_name
 
 
 class CartItem(WhoDidIt):
@@ -28,5 +30,7 @@ class CartItem(WhoDidIt):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    def __str__(self):
-        return self.Meta.verbose_name
+    # TODO made correct __str__
+
+    # def __str__(self):
+    #     return self.Meta.verbose_name
