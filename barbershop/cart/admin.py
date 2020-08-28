@@ -9,6 +9,7 @@ class CartAdmindmin(admin.ModelAdmin):
 
 admin.site.register(Cart, CartAdmindmin)
 
+
 class CartItemAdmindmin(admin.ModelAdmin):
     pass
 
