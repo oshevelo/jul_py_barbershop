@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'novaposhta',
 
     'blog.apps.BlogConfig',
-    'cart',
+    #'cart',
     'apps_generic.whodidit',
 
 
@@ -150,5 +150,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
-from local  import *
+from barbershop.local import *
 
