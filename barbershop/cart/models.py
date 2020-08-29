@@ -7,30 +7,25 @@ from apps_generic.whodidit.models import WhoDidIt
 
 
 class Cart(WhoDidIt):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    pub_date = models.DateTimeField('date published')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, verbose_name='Пользователь')
+    pub_date = models.DateTimeField('Дата публикации')
 
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
 
-    #TODO made correct __str__
-
-    # def __str__(self):
-    #     return self.Meta.verbose_name
-
+    def __str__(self):
+        return 'Корзина'
 
 class CartItem(WhoDidIt):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    sum = models.IntegerField()
-    count = models.PositiveSmallIntegerField(default=1)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE,)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Имя товара')
+    sum = models.FloatField(verbose_name='Сумма')
+    count = models.PositiveSmallIntegerField(default=1, verbose_name='Количество')
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    # TODO made correct __str__
-
-    # def __str__(self):
-    #     return self.Meta.verbose_name
+    def __str__(self):
+        return 'Товар корзины'
