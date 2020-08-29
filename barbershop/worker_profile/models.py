@@ -21,7 +21,7 @@ class WorkerProfile(models.Model):
     type = models.CharField(
         max_length=50,
         choices=TYPES,
-        default=Type.facebook_id,
+        default=None,
     )
 
     first_name = models.CharField(max_length=15)
@@ -29,7 +29,7 @@ class WorkerProfile(models.Model):
     position = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=18)
     email = models.CharField(max_length=50)
-    worker = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
+    worker = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return self.worker
+        return self.first_name
