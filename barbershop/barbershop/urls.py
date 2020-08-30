@@ -23,5 +23,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('products/', include('products.urls')),
 
+    path('cart/', include('cart.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
