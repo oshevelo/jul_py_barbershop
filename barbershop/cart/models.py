@@ -4,6 +4,8 @@ from products.models import Product
 from apps_generic.whodidit.models import WhoDidIt
 
 # Create your models here.
+
+
 class Cart(WhoDidIt):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     pub_date = models.DateTimeField('date published')
@@ -12,8 +14,11 @@ class Cart(WhoDidIt):
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
 
-    def __str__(self):
-        return self.Meta.verbose_name
+    #TODO made correct __str__
+
+    # def __str__(self):
+    #     return self.Meta.verbose_name
+
 
 class CartItem(WhoDidIt):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -25,5 +30,7 @@ class CartItem(WhoDidIt):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    def __str__(self):
-        return self.Meta.verbose_name
+    # TODO made correct __str__
+
+    # def __str__(self):
+    #     return self.Meta.verbose_name
