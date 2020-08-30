@@ -13,14 +13,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='workerprofile',
-            name='type',
-            field=models.CharField(choices=[('Facebook id', 'Facebook id'), ('Instagram id', 'Instagram id'), ('Other id', 'Other id')], default='Facebook id', max_length=50),
-        ),
-        migrations.AddField(
-            model_name='workerprofile',
-            name='worker',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
     ]
