@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from apps_generic.whodidit.models import WhoDidIt, set_who_did_it
 from django.utils import timezone
 
 
@@ -17,7 +18,7 @@ class Catalog(models.Model):
         return self.name
 
 
-class Product(models.Model):
+class Product(WhoDidIt):
     """products and prices"""
     class Type:
         hair_cut = 'hair_cut'
