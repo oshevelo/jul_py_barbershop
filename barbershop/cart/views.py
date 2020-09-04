@@ -1,26 +1,22 @@
-from django.http import HttpResponse
-from django.http import Http404
-from cart.models import Cart, CartItem
-from rest_framework.permissions import IsAuthenticated
-
 from rest_framework import generics
-from cart.serializers import CartSerializer, CartItemDetailSerializer
-from cart.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from cart.serializers import CartDetailSerializer, CartItemSerializer, CartItemDetailSerializer
+from cart.models import Cart, CartItem
+from rest_framework.pagination import LimitOffsetPagination
 
-
-class CartDetail(generics.RetrieveAPIView):
-    serializer_class = CartSerializer
-    permission_classes = [IsAuthenticated]#IsOwnerOrReadOnly, CartPermissions, ]
+class CartDetails(generics.RetrieveAPIView):
+    serializer_class = CartDetailSerializer
+    pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         cart = get_object_or_404(Cart, user=self.request.user)
         return cart
 
-
 class CartItemList(generics.ListCreateAPIView):
-    
-    serializer_class = CartItemDetailSerializer
+    serializer_class = CartItemSerializer
+    pagination_class = LimitOffsetPagination
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -28,12 +24,12 @@ class CartItemList(generics.ListCreateAPIView):
         cart_items = CartItem.objects.filter(cart=cart)
         return cart_items
 
-
-class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    
-    serializer_class = CartItemDetailSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+class CartItemDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CartItemDetailSerializer(sum, many=True)
+    pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        cart = get_object_or_404(CartItem, pk=self.kwargs.get('cartitem_id'))
-        return cart
+        cart = get_object_or_404(Cart, user=self.request.user)
+        cart_item = CartItem.objects.filter(cart=cart, pk=self.kwargs.get('cartitem_id'))
+        return cart_item
