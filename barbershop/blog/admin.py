@@ -1,5 +1,12 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericStackedInline
+from comments.models import CommentItem
 from .models import Article, ArticleTag, TaggedArticle
+
+
+class GenericCommentInline(GenericStackedInline):
+    model = CommentItem
+    extra = 1
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -7,6 +14,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ('General', {'fields': ['header', 'body']}),
         ('Tags', {'fields': ['tags']})
     ]
+    inlines = [GenericCommentInline]
     list_display = ('header', 'created_on', 'tag_list')
     list_filter = ['created_on', 'tags']
     search_fields = ['header', 'body']
@@ -17,6 +25,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())
+
 
 
 class TaggedArticleInline(admin.StackedInline):
