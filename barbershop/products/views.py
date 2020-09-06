@@ -2,6 +2,7 @@ from rest_framework import generics
 from .models import Catalog, Product
 from django.shortcuts import get_object_or_404
 from .serializers import CatalogSerializer, ProductSerializer
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class CatalogList(generics.ListCreateAPIView):
@@ -18,6 +19,7 @@ class CatalogDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProductList(generics.ListCreateAPIView):
+    pagination_class = LimitOffsetPagination
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 

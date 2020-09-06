@@ -18,8 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    created_by = UserSerializer()
-    updated_by = UserSerializer()
+    created_by = UserSerializer(read_only=True)
+    updated_by = UserSerializer(read_only=True)
     class Meta:
         model = Comment
         fields = [
