@@ -25,7 +25,7 @@ class CartItemList(generics.ListCreateAPIView):
         return cart_items
 
 class CartItemDetails(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CartItemDetailSerializer(sum, many=True)
+    serializer_class = CartItemDetailSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = [IsAuthenticated]
 
