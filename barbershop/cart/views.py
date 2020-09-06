@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from cart.serializers import CartDetailSerializer, CartItemSerializer, CartItemDetailSerializer
 from cart.models import Cart, CartItem
 from rest_framework.pagination import LimitOffsetPagination
+from cart.permissions import IsOwnerOrReadOnly
 
 class CartDetails(generics.RetrieveAPIView):
     serializer_class = CartDetailSerializer
@@ -27,9 +28,8 @@ class CartItemList(generics.ListCreateAPIView):
 class CartItemDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemDetailSerializer
     pagination_class = LimitOffsetPagination
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_object(self):
-        cart = get_object_or_404(Cart, user=self.request.user)
-        cart_item = CartItem.objects.filter(cart=cart, pk=self.kwargs.get('cartitem_id'))
+        cart_item = get_object_or_404(CartItem, pk=self.kwargs.get('cartitem_id'))
         return cart_item

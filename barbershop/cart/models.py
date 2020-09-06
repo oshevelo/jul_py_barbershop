@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from products.models import Product
 from apps_generic.whodidit.models import WhoDidIt
 
-# Create your models here.
-
 
 class Cart(WhoDidIt):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, verbose_name='User')
