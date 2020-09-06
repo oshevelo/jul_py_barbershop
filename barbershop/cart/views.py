@@ -6,6 +6,7 @@ from cart.models import Cart, CartItem
 from rest_framework.pagination import LimitOffsetPagination
 from cart.permissions import IsOwnerOrReadOnly
 
+
 class CartDetails(generics.RetrieveAPIView):
     serializer_class = CartDetailSerializer
     pagination_class = LimitOffsetPagination
