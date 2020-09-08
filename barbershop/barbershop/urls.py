@@ -25,4 +25,8 @@ urlpatterns = [
 
     path('cart/', include('cart.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    path('worker_profile/', include('worker_profile.urls')),
+    path('worker_communications/', include('worker_profile.urls')),
+
 ]
