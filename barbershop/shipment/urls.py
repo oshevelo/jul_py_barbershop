@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
+from .serializers import ShipmentSerializer
+from .models import Shipment
+from rest_framework import generics
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),
-    path('admin/', admin.site.urls),
     path('novaposhta/', include('novaposhta.urls')),
+    path('shipmentlist', generics.ListCreateAPIView.as_view(queryset=Shipment.objects.all(), serializer_class=ShipmentSerializer), name='shipment_list'),
 ]
