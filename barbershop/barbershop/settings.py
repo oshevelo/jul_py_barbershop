@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 
     'payments',
     'products.apps.ProductsConfig',
-    'shipment.apps.ShipmentConfig',
+    'shipment',
     'comments',
     'novaposhta',
     'blog.apps.BlogConfig',
