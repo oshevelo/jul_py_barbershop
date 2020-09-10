@@ -13,6 +13,7 @@ class WorkerProfile(WhoDidIt):
     position = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=18)
     email = models.CharField(max_length=50)
+    worker = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.first_name
@@ -25,9 +26,9 @@ class WorkerCommunications(WhoDidIt):
         other_id = 'other_id'
 
     TYPES = [
-        (Type.facebook_id, 'facebook_id'),
-        (Type.instagram_id, 'instagram_id'),
-        (Type.other_id, 'other_id'),
+        (Type.facebook_id, 'Facebook_id'),
+        (Type.instagram_id, 'Instagram_id'),
+        (Type.other_id, 'Other_id'),
     ]
 
     type = models.CharField(
@@ -37,8 +38,7 @@ class WorkerCommunications(WhoDidIt):
     )
 
     worker_profile = models.ForeignKey(WorkerProfile, on_delete=models.CASCADE)
-    worker = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True)
     social_networks_ids = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.worker
+        return '{} Comm of type {} with id: {}'.format(self.worker_profile, self.type, self.social_networks_ids)
