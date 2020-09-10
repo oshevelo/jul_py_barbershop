@@ -1,16 +1,12 @@
 from django.contrib import admin
 from .models import Cart, CartItem
 
-# Register your models here.
 
-class CartAdmindmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'pub_date')
+class CartItemAdmin(admin.StackedInline):
+    model = CartItem
 
+class CartAdmin(admin.ModelAdmin):
+    inlines = [CartItemAdmin]
+    list_display = ('user', 'pub_date')
 
-admin.site.register(Cart, CartAdmindmin)
-
-
-class CartItemAdmindmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(CartItem, CartItemAdmindmin)
+admin.site.register(Cart, CartAdmin)
