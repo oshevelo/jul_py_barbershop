@@ -20,8 +20,14 @@ class CatalogDetails(generics.RetrieveUpdateDestroyAPIView):
 
 class ProductList(generics.ListCreateAPIView):
     pagination_class = LimitOffsetPagination
-    queryset = Product.objects.all()
+#    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        print(self.request.GET)
+        if self.request.GET.get('search'):
+            return Product.objects.filter(name__istartswith=self.request.GET.get('search'))
+        return Product.objects.all()
 
 
 class ProductDetails(generics.RetrieveUpdateDestroyAPIView):
