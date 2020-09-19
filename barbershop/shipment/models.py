@@ -1,7 +1,8 @@
 from django.db import models
+from apps_generic.whodidit.models import WhoDidIt
 
 
-class Shipment(models.Model):
+class Shipment(WhoDidIt):
     """methods of shipment"""
 
     class ShipmentType:
@@ -20,10 +21,9 @@ class Shipment(models.Model):
     )
 
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    user_name = models.CharField(max_length=20)
-    user_surname = models.CharField(max_length=50)
-    user_phone = models.CharField(max_length=15)
-    user_email = models.CharField(max_length=30)
-    user_address = models.CharField(max_length=30)
-    user_comment = models.CharField(max_length=400)
-
+    buyer_name = models.CharField(max_length=20)
+    buyer_surname = models.CharField(max_length=50)
+    buyer_phone = models.CharField(max_length=15)
+    buyer_email = models.CharField(max_length=30)
+    buyer_address = models.CharField(max_length=30)
+    buyer_comment = models.CharField(max_length=400, blank=True)

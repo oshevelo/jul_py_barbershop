@@ -3,34 +3,27 @@ from django.contrib.auth.models import User
 from products.models import Product
 from apps_generic.whodidit.models import WhoDidIt
 
-# Create your models here.
-
 
 class Cart(WhoDidIt):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    pub_date = models.DateTimeField('date published')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, verbose_name='User')
+    pub_date = models.DateTimeField('Date of publication')
 
     class Meta:
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзины'
+        verbose_name = 'Cart'
+        verbose_name_plural = 'Carts'
 
-    #TODO made correct __str__
-
-    # def __str__(self):
-    #     return self.Meta.verbose_name
-
+    def __str__(self):
+        return 'Cart'
 
 class CartItem(WhoDidIt):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    sum = models.IntegerField()
-    count = models.PositiveSmallIntegerField(default=1)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE,)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Item name')
+    sum = models.FloatField(verbose_name='Sum')
+    count = models.PositiveSmallIntegerField(default=1, verbose_name='Amount')
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'Cart item'
+        verbose_name_plural = 'Cart items'
 
-    # TODO made correct __str__
-
-    # def __str__(self):
-    #     return self.Meta.verbose_name
+    def __str__(self):
+        return 'Cart item'

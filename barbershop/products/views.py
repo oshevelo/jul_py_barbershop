@@ -32,7 +32,6 @@ class ProductDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Catalog.objects.all()
     serializer_class = ProductSerializer
 
-
     def get_object(self):
         return get_object_or_404(Product, pk=self.kwargs.get('product_id'))
 
