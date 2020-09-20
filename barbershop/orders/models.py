@@ -29,4 +29,4 @@ class OrderItem(WhoDidIt):
         verbose_name_plural = 'Order items'
 
     def __str__(self):
-        return self.order
+        return str(self.order)
