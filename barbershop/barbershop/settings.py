@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'novaposhta',
     'blog.apps.BlogConfig',
     'cart',
+    'orders',
     'apps_generic.whodidit',
     'jet',
     'taggit',

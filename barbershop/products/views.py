@@ -3,18 +3,22 @@ from .models import Catalog, Product
 from django.shortcuts import get_object_or_404
 from .serializers import CatalogSerializer, ProductSerializer
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly,BasePermission, SAFE_METHODS
+from products.permissions import IsOwnerOrReadOnly, IsOwnerOrReadOnly_object
 
 
 class CatalogList(generics.ListCreateAPIView):
+    pagination_class = LimitOffsetPagination
+    pagination_class.default_limit = 5
+    pagination_class.max_limit = 15
     queryset = Catalog.objects.all()
     serializer_class = CatalogSerializer
 
 
 class CatalogDetails(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Catalog.objects.all()
     serializer_class = CatalogSerializer
-
     def get_object(self):
         return get_object_or_404(Catalog, pk=self.kwargs.get('catalog_id'))
 
@@ -24,13 +28,21 @@ class ProductList(generics.ListCreateAPIView):
     pagination_class.default_limit = 5
     pagination_class.max_limit = 15
     queryset = Product.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        print(self.request.GET)
+        if self.request.GET.get('search'):
+            return Product.objects.filter(name__istartswith=self.request.GET.get('search'))
+        return Product.objects.all()
 
 
 class ProductDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Catalog.objects.all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly_object]
 
     def get_object(self):
         return get_object_or_404(Product, pk=self.kwargs.get('product_id'))
