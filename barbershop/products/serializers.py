@@ -10,6 +10,7 @@ class CatalogSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    type = serializers.CharField(read_only= True)
 
     class Meta:
         model = Product
