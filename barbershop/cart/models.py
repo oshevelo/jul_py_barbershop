@@ -16,7 +16,7 @@ class Cart(WhoDidIt):
         return 'Cart'
 
 class CartItem(WhoDidIt):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE,)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Item name')
     sum = models.FloatField(verbose_name='Sum')
     count = models.PositiveSmallIntegerField(default=1, verbose_name='Amount')

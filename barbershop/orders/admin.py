@@ -1,4 +1,11 @@
 from django.contrib import admin
-from .models import Order
+from .models import Order, OrderItem
 
-admin.site.register(Order)
+
+class OrderItemAdmin(admin.StackedInline):
+    model = OrderItem
+
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemAdmin]
+
+admin.site.register(Order, OrderAdmin)
