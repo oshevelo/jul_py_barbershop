@@ -27,7 +27,7 @@ class OrdersListAPITest(TestCase):
 
     def test_orders_list(self):
 
-        self.c.login(username='tt', password='111')gi
+        self.c.login(username='tt', password='111')
         response = self.c.get(
             '/orders/'
         )
