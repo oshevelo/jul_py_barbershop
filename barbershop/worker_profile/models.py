@@ -26,9 +26,9 @@ class WorkerCommunications(WhoDidIt):
         other_id = 'other_id'
 
     TYPES = [
-        (Type.facebook_id, 'Facebook_id'),
-        (Type.instagram_id, 'Instagram_id'),
-        (Type.other_id, 'Other_id'),
+        (Type.facebook_id, 'Facebook id'),
+        (Type.instagram_id, 'Instagram id'),
+        (Type.other_id, 'Other id'),
     ]
 
     type = models.CharField(
