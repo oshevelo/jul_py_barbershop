@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 from apps_generic.whodidit.models import WhoDidIt, set_who_did_it
 from django.utils import timezone
