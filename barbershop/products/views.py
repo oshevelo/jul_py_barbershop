@@ -4,7 +4,9 @@ from django.shortcuts import get_object_or_404
 from .serializers import CatalogSerializer, ProductSerializer
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly,BasePermission, SAFE_METHODS
-from .permissions import IsReadOnly, IsType_product_OrReadOnly_object
+
+from products.permissions import IsReadOnly, IsType_product_OrReadOnly_object
+
 
 
 class CatalogList(generics.ListCreateAPIView):
