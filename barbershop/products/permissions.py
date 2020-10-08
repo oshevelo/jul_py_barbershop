@@ -12,7 +12,7 @@ class IsReadOnly(BasePermission):
         return False
 
 
-class IsOwnerOrReadOnly_object(BasePermission):
+class IsType_product_OrReadOnly_object(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
