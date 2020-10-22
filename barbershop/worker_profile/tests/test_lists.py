@@ -46,7 +46,7 @@ class WorkerProfileListAPITest(TestCase):
         )
         user_kw['password'] = make_password(user_kw['password'])
         self.user = User.objects.create(**user_kw)
-        self.worker = WorkerProfile.objects.create(first_name='test', second_name='testtest',position='testbarber',
+        self.worker = WorkerProfile.objects.create(first_name='test', second_name='testtest', position='testbarber',
                                                    phone_number='+111111111111', email='test@gmail.com', worker=None)
 
     def test_worker_profile_list(self):
@@ -83,7 +83,7 @@ class WorkerCommunicationsListAPITest(TestCase):
         self.c = APIClient()
         self.worker = WorkerProfile.objects.create(first_name='test', second_name='testtest', position='testbarber',
                                                    phone_number='+111111111111', email='test@gmail.com', worker=None)
-        self.worker_comm = WorkerCommunications.objects.create(worker_profile_id=self.worker.id,
+        self.worker_comm = WorkerCommunications.objects.create(worker_profile=self.worker,
                                                                type=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
@@ -94,14 +94,15 @@ class WorkerCommunicationsListAPITest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         dump(response)
+        print(response.data)
         self.assertEqual(response.data, {
                 "count": 1,
                 "next": None,
                 "previous": None,
                 "results": [
                     {
-                        "id": 2,
-                        "worker_profile_id": self.worker_comm.worker_profile_id,
+                        "id": self.worker_comm.id,
+                        "worker_profile": self.worker_comm.worker_profile.id,
                         "social_network": 'Facebook id',
                         "social_networks_ids": self.worker_comm.social_networks_ids
                     },
