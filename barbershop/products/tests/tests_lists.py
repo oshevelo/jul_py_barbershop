@@ -1,4 +1,5 @@
-from datetime import datetime
+import pytz
+from datetime import datetime, timedelta
 import json
 from django.utils import timezone
 from django.test import TestCase
@@ -7,7 +8,6 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 from rest_framework.test import APIClient
-from apps_generic.whodidit.models import WhoDidIt
 from products.models import Catalog, Product
 from uuid import uuid4
 
@@ -55,12 +55,6 @@ class ProductsListTest(TestCase):
         self.catalog = Catalog.objects.create(slug=str(uuid4()))
         self.product = Product.objects.create(price=20.00, stock=10, catalog_id=self.catalog.id)
 
-        # self.created_on = \
-        #     WhoDidIt.updated_on(datetime.datetime.utcnow().
-        #                         replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=10800))).isoformat())
-        # self.updated_on = \
-        #     datetime.datetime.utcnow().replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=10800))).isoformat()
-
     def test_products_list(self):
 
         self.c.login(username='tt', password='111')
@@ -69,7 +63,15 @@ class ProductsListTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         dump(response)
-        print(dir(status))
+
+        created_on = self.product.created_on
+        updated_on = self.product.updated_on
+
+        tz = pytz.timezone('Europe/Kiev')
+        created_on = created_on.replace(tzinfo=pytz.UTC)
+        created_on = created_on.astimezone(tz)
+        updated_on = updated_on.replace(tzinfo=pytz.UTC)
+        updated_on = updated_on.astimezone(tz)
 
         self.assertEqual(response.data, {
                 "count": 1,
@@ -85,8 +87,8 @@ class ProductsListTest(TestCase):
                         "price": '20.00',
                         "stock": self.product.stock,
                         "available": True,
-                        # "created_on": self.product.created,
-                        # "updated_on": self.product.updated,
+                        "created_on": created_on.isoformat(),
+                        "updated_on": updated_on.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     }
