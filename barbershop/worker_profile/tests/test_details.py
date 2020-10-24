@@ -58,7 +58,7 @@ class WorkerProfileDetailsAPITest(TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        dump(response)
+        #dump(response)
 
 
 class WorkerProfileDetailsPermissionAPITest(TestCase):
@@ -94,7 +94,7 @@ class WorkerProfileDetailsPermissionAPITest(TestCase):
             '/worker_profile/worker_profile/1/'
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        dump(response)
+        #dump(response)
 
 
 class WorkerCommunicationsListAPITest(TestCase):
@@ -132,7 +132,8 @@ class WorkerCommunicationsListAPITest(TestCase):
         self.c.login(username='tt2', password='222')
 
         response = self.c.get(
-            '/worker_profile/worker_profile/worker_communications/1/'
+            '/worker_profile/worker_profile/worker_communications/{}/'.format(self.worker_comm.id)
         )
+        dump(response)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         dump(response)
