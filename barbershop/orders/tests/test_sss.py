@@ -14,6 +14,7 @@ from cart.models import Cart
 
 def _dict_key_quotes(text):
     """ Replaces first two occurrences of double quotes " to single quotes ' in every line
+    
         Is used to print dictionaries formatted according to the project guidelines
         (dict key are in single quotes, texts are in double quotes)
     """
