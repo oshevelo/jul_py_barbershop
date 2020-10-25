@@ -23,7 +23,9 @@ def _dict_key_quotes(text):
 
 def dump(response):
     """ Print DRF response data
+    
         Useful for debugging tests. Prints response code and indented JSON data
+        
     :param response: server response provided by DRF testing client (APIClient)
     """
 
@@ -53,7 +55,9 @@ class OrdersListAPITest(TestCase):
         self.cart = Cart.objects.create(pub_date=datetime.now(), user=self.user)
         self.order = Order.objects.create(order_sum=10.01, cart=self.cart)
 
+        
     def test_orders_list(self):
+        
         self.c.login(username='tt', password='111')
         response = self.c.get(
             '/orders/'
@@ -78,6 +82,8 @@ class OrdersListAPITest(TestCase):
                          )
 
     def test_cart_list(self):
+        
+        
         self.c.login(username='tt', password='111')
         response = self.c.get(
             '/cart/'
@@ -86,6 +92,8 @@ class OrdersListAPITest(TestCase):
         # dump(response)
 
     def test_cart_prohibited_list(self):
+        
+        
         # self.c.login(username='tt', password='111')
         response = self.c.get(
             '/cart/'
