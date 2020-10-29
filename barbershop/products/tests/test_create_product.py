@@ -74,52 +74,53 @@ class ProductsListTest(TestCase):
             '/products/catalog/products/',
             data=
             {
-                "id": self.product.id+1,
                 "type": "product",
                 "catalog": self.catalog.id,
                 "name": "000000000000",
                 "slug": "000000000000",
                 "price": "11.00",
                 "stock": 20,
-                "available": True,
-                "created_on": created_on.isoformat(),
-                # "updated_on": updated_on.isoformat(),
-                "created_by": self.user.id,
-                "updated_by": self.user.id
+                "available": True
             },
             format='json'
         )
-
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         dump(response)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+        # print(_dict_key_quotes(json.dumps({
+        #      "id": response.data['id'],
+        #      "type": "product",
+        #      "catalog": self.catalog.id,
+        #      "name": "000000000000",
+        #      "slug": "000000000000",
+        #      "price": "11.00",
+        #      "stock": 20,
+        #      "available": True,
+        #      "created_on": response.data['created_on'],
+        #      "updated_on": response.data['updated_on'],
+        #      "created_by": self.user.id,
+        #      "updated_by": self.user.id
+        #  }, indent=4, ensure_ascii=False)))
+
+        self.assertEqual(response.data,
+                         {
+                             "id": response.data['id'],
+                             "type": "product",
+                             "catalog": self.catalog.id,
+                             "name": "000000000000",
+                             "slug": "000000000000",
+                             "price": "11.00",
+                             "stock": 20,
+                             "available": True,
+                             "created_on": response.data['created_on'],
+                             "updated_on": response.data['updated_on'],
+                             "created_by": self.user.id,
+                             "updated_by": self.user.id
+                         }
+                         )
         print(response.data)
         print('*'*100)
 
-        response = self.c.get(
-            '/products/catalog/products/{}/'.format(self.product.id+1)
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        dump(response)
-
-        self.assertEqual(response.data,
-            {
-                "id": self.product.id+1,
-                "type": "product",
-                "catalog": self.catalog.id,
-                "name": "000000000000",
-                "slug": "000000000000",
-                "price": "11.00",
-                "stock": 20,
-                "available": True,
-                "created_on": created_on.isoformat(),
-                # "updated_on": updated_on.isoformat(),
-                "created_by": self.user.id,
-                "updated_by": self.user.id
-            }
-        )
-        print('#' * 100)
-        print(response.data)
 
 
     def test_products_create(self):

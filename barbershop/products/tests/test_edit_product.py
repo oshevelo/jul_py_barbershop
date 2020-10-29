@@ -80,30 +80,32 @@ class ProductsListTest(TestCase):
                 "price": "20.00",
                 "stock": 20,
                 "available": True,
-                "created_on": created_on.isoformat(),
-                # "updated_on": updated_on.isoformat(),
-                "created_by": None,
-                "updated_by": self.user.id
             },
             format='json'
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         dump(response)
-
-        print('*'*100)
-        print(response.data)
-
-
-        response = self.c.get(
-            '/products/catalog/products/{}/'.format(self.product.id)
-        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        dump(response)
+
+        # print(_dict_key_quotes(json.dumps({
+        #     "id": response.data['id'],
+        #     "type": "product",
+        #     "catalog": self.catalog.id,
+        #     "name": 'shampoo',
+        #     "slug": 'shampoo',
+        #     "price": '20.00',
+        #     "stock": self.product.stock,
+        #     "available": True,
+        #     "created_on": response.data['created_on'],
+        #     "updated_on": response.data['updated_on'],
+        #     "created_by": None,
+        #     "updated_by": self.user.id
+        # }, indent=4, ensure_ascii=False)))
+
 
         self.assertEqual(response.data,
             {
-                "id": self.product.id,
+                "id": response.data['id'],
                 "type": "product",
                 "catalog": self.catalog.id,
                 "name": 'shampoo',
@@ -111,8 +113,8 @@ class ProductsListTest(TestCase):
                 "price": '20.00',
                 "stock": self.product.stock,
                 "available": True,
-                "created_on": created_on.isoformat(),
-                # "updated_on": updated_on.isoformat(),
+                "created_on": response.data['created_on'],
+                "updated_on": response.data['updated_on'],
                 "created_by": None,
                 "updated_by": self.user.id
             }

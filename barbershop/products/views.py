@@ -31,7 +31,7 @@ class ProductList(generics.ListCreateAPIView):
     pagination_class.default_limit = 5
     pagination_class.max_limit = 15
     queryset = Product.objects.all()
-    permission_classes = [IsReadOnly]
+    # permission_classes = [IsReadOnly]
     serializer_class = ProductSerializer
     search_fields = ['name']
     filter_backends = (filters.SearchFilter,)
@@ -46,7 +46,7 @@ class ProductList(generics.ListCreateAPIView):
 class ProductDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     pagination_class = LimitOffsetPagination
-    permission_classes = [IsAuthenticatedOrReadOnly, IsType_product_OrReadOnly_object]
+    # permission_classes = [IsAuthenticatedOrReadOnly, IsType_product_OrReadOnly_object]
 
     def get_object(self):
         return get_object_or_404(Product, pk=self.kwargs.get('product_id'))
