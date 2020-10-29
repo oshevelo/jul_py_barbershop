@@ -9,7 +9,7 @@ from apps_generic.dump import dump
 from worker_profile.models import WorkerProfile, WorkerCommunications
 
 
-class WorkerProfileEditAPITest(TestCase):
+class WorkerProfileDeleteAPITest(TestCase):
 
     def setUp(self):
         self.c = APIClient()
@@ -27,31 +27,22 @@ class WorkerProfileEditAPITest(TestCase):
                                                                type=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
-    def test_worker_profile_and_comm_edit(self):
+    def test_worker_profile_and_comm_delete(self):
         self.c.login(username='aa', password='aaa111')
-        response = self.c.put(
+        response = self.c.delete(
             '/worker_profile/worker_profile/{}/'.format(self.worker.id),
-            data={
-                'first_name': 'testtest',
-                'second_name': 'testtesttest',
-                'position': 'admin',
-                'phone_number': '+222222222222',
-                'email': 'testtesttesttest@gmail.com',
-                'worker': self.user.id,
-            }
+            # data={
+            #     'id': self.user.id,
+            #     'first_name': 'test',
+            #     'second_name': 'testtestx',
+            #     'position': 'testbarber',
+            #     'phone_number': '+111111111111',
+            #     'email': 'test@gmail.com',
+            #     'worker': self.worker,
+            # },
+            # format='json'
         )
 
         dump.dump(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        response1 = self.c.put(
-            '/worker_profile/worker_profile/worker_communications/{}/'.format(self.worker_comm.id),
-            data={
-                "id": self.worker_comm.id,
-                "worker_profile": self.worker_comm.worker_profile.id,
-                "type": self.worker_comm.type,
-                "social_networks_ids": "@zazazaza"
-            }
-        )
-        dump.dump(response1)
-        self.assertEqual(response1.status_code, status.HTTP_200_OK)

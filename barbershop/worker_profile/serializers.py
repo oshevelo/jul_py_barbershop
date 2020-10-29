@@ -19,8 +19,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
 
 
 class WorkerCommunicationsSerializer(serializers.ModelSerializer):
-    social_network = serializers.CharField(source='get_type_display')
 
     class Meta:
         model = WorkerCommunications
-        fields = ['id', 'worker_profile',  'social_network', 'social_networks_ids']
+        fields = ['id', 'worker_profile',  'type', 'social_networks_ids']
