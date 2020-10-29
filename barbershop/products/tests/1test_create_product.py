@@ -12,7 +12,6 @@ from products.models import Catalog, Product
 from uuid import uuid4
 
 
-
 def _dict_key_quotes(text):
     """ Replaces first two occurrences of double quotes " to single quotes ' in every line
         Is used to print dictionaries formatted according to the project guidelines
@@ -40,6 +39,9 @@ def dump(response):
 
 
 class ProductsListTest(TestCase):
+    print("*" * 100)
+    print("To run the test, you must disable the IsReadOnly permission")
+    print("*" * 100)
 
     def setUp(self):
         self.c = APIClient()
@@ -53,50 +55,72 @@ class ProductsListTest(TestCase):
         user_kw['password'] = make_password(user_kw['password'])
         self.user = User.objects.create(**user_kw)
         self.catalog = Catalog.objects.create(slug=str(uuid4()))
-        self.product = Product.objects.create(price=20.00, stock=10, catalog_id=self.catalog.id)
-
-    def test_products_list(self):
-
-        self.c.login(username='tt', password='111')
-        response = self.c.get(
-            '/products/catalog/products/'
+        self.product = Product.objects.create(name='aaaaa',price=20.00, stock=10, catalog_id=self.catalog.id
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        dump(response)
+
+    def test_products_edit(self):
 
         created_on = self.product.created_on
         updated_on = self.product.updated_on
-
         tz = pytz.timezone('Europe/Kiev')
         created_on = created_on.replace(tzinfo=pytz.UTC)
         created_on = created_on.astimezone(tz)
         updated_on = updated_on.replace(tzinfo=pytz.UTC)
         updated_on = updated_on.astimezone(tz)
 
-        self.assertEqual(response.data, {
-                "count": 1,
-                "next": None,
-                "previous": None,
-                "results": [
-                    {
-                        "id": self.product.id,
-                        "type": "product",
-                        "catalog": self.catalog.id,
-                        "name": '',
-                        "slug": '',
-                        "price": '20.00',
-                        "stock": self.product.stock,
-                        "available": True,
-                        "created_on": created_on.isoformat(),
-                        # "updated_on": updated_on.isoformat(),
-                        "created_by": None,
-                        "updated_by": None
-                    }
-                ]
+        self.c.login(username='tt', password='111')
+
+        response = self.c.post(
+            '/products/catalog/products/',
+            data=
+            {
+                "id": self.product.id+1,
+                "type": "product",
+                "catalog": self.catalog.id,
+                "name": "000000000000",
+                "slug": "000000000000",
+                "price": "11.00",
+                "stock": 20,
+                "available": True,
+                "created_on": created_on.isoformat(),
+                # "updated_on": updated_on.isoformat(),
+                "created_by": self.user.id,
+                "updated_by": self.user.id
+            },
+            format='json'
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        dump(response)
+
+        print(response.data)
+        print('*'*100)
+
+        response = self.c.get(
+            '/products/catalog/products/{}/'.format(self.product.id+1)
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        dump(response)
+
+        self.assertEqual(response.data,
+            {
+                "id": self.product.id+1,
+                "type": "product",
+                "catalog": self.catalog.id,
+                "name": "000000000000",
+                "slug": "000000000000",
+                "price": "11.00",
+                "stock": 20,
+                "available": True,
+                "created_on": created_on.isoformat(),
+                # "updated_on": updated_on.isoformat(),
+                "created_by": self.user.id,
+                "updated_by": self.user.id
             }
         )
+        print('#' * 100)
         print(response.data)
+
 
     def test_products_create(self):
         self.assertEqual(True, True)
-
