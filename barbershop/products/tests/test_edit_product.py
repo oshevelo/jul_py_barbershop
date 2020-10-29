@@ -72,7 +72,7 @@ class ProductsListTest(TestCase):
             '/products/catalog/products/{}/'.format(self.product.id),
             data=
             {
-                "id": self.product.id,
+
                 "type": "product",
                 "catalog": self.catalog.id,
                 "name": "shampoo",

@@ -89,7 +89,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product.stock,
                         "available": True,
                         "created_on": created_on.isoformat(),
-                        # "updated_on": updated_on.isoformat(),
+                        "updated_on": updated_on.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     }
@@ -128,7 +128,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product1.stock,
                         "available": True,
                         "created_on": created_on1.isoformat(),
-                        # "updated_on": updated_on1.isoformat(),
+                        "updated_on": updated_on1.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     }
@@ -166,7 +166,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product2.stock,
                         "available": True,
                         "created_on": created_on2.isoformat(),
-                        # "updated_on": updated_on2.isoformat(),
+                        "updated_on": updated_on2.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     }
@@ -194,7 +194,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product.stock,
                         "available": True,
                         "created_on": created_on.isoformat(),
-                        # "updated_on": updated_on.isoformat(),
+                        "updated_on": updated_on.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     },
@@ -208,7 +208,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product1.stock,
                         "available": True,
                         "created_on": created_on1.isoformat(),
-                        # "updated_on": updated_on1.isoformat(),
+                        "updated_on": updated_on1.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     },

@@ -88,7 +88,7 @@ class ProductsListTest(TestCase):
                         "stock": self.product.stock,
                         "available": True,
                         "created_on": created_on.isoformat(),
-                        # "updated_on": updated_on.isoformat(),
+                        "updated_on": updated_on.isoformat(),
                         "created_by": None,
                         "updated_by": None
                     }
