@@ -1,5 +1,15 @@
 from .models import WorkerProfile, WorkerCommunications
 from rest_framework import serializers
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email'
+        ]
 
 
 class WorkerProfileSerializer(serializers.ModelSerializer):
@@ -9,8 +19,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
 
 
 class WorkerCommunicationsSerializer(serializers.ModelSerializer):
-    social_network = serializers.CharField(source='get_type_display')
 
     class Meta:
         model = WorkerCommunications
-        fields = ['id', 'worker_profile_id', 'social_network', 'social_networks_ids']
+        fields = ['id', 'worker_profile',  'type', 'social_networks_ids']
