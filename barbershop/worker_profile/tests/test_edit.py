@@ -24,7 +24,7 @@ class WorkerProfileEditAPITest(TestCase):
                                                    phone_number='+111111111111', email='test@gmail.com',
                                                    worker=self.user)
         self.worker_comm = WorkerCommunications.objects.create(worker_profile=self.worker,
-                                                               type=WorkerCommunications.Type.facebook_id,
+                                                               social_network=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
     def test_worker_profile_and_comm_edit(self):
@@ -49,7 +49,7 @@ class WorkerProfileEditAPITest(TestCase):
             data={
                 "id": self.worker_comm.id,
                 "worker_profile": self.worker_comm.worker_profile.id,
-                "type": self.worker_comm.type,
+                "social_network": self.worker_comm.social_network,
                 "social_networks_ids": "@zazazaza"
             }
         )
