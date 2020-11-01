@@ -11,6 +11,7 @@ from apps_generic.dump import dump
 from rest_framework.test import APIClient
 from products.models import Catalog, Product
 from uuid import uuid4
+from apps_generic.dump import dump
 
 
 class ProductsListTest(TestCase):
@@ -29,10 +30,7 @@ class ProductsListTest(TestCase):
         self.catalog = Catalog.objects.create(slug=str(uuid4()))
         self.product = Product.objects.create(name='aaaaa',price=20.00, stock=20, catalog_id=self.catalog.id)
 
-    def test_products_edit(self):
-
-        self.c.login(username='tt', password='111')
-
+    def test_products_details(self):
         created_on = self.product.created_on
         updated_on = self.product.updated_on
 
@@ -42,58 +40,47 @@ class ProductsListTest(TestCase):
         updated_on = updated_on.replace(tzinfo=pytz.UTC)
         updated_on = updated_on.astimezone(tz)
 
-        response = self.c.patch(
-            # f'/products/catalog/products/{self.product.id}/',
-            '/products/catalog/products/{}/'.format(self.product.id),
-            data=
-            {
 
-                "type": "product",
-                "catalog": self.catalog.id,
-                "name": "shampoo",
-                "slug": "shampoo",
-                "price": "20.00",
-                "stock": 20,
-                "available": True,
-            },
-            format='json'
+        self.c.login(username='tt', password='111')
+        response = self.c.get(
+            '/products/catalog/products/{}/'.format(self.product.id)
         )
 
         dump.dump(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # print(_dict_key_quotes(json.dumps({
+
+        # print(dump._dict_key_quotes(json.dumps({
         #     "id": response.data['id'],
         #     "type": "product",
         #     "catalog": self.catalog.id,
-        #     "name": 'shampoo',
-        #     "slug": 'shampoo',
+        #     "name": 'aaaaa',
+        #     "slug": '',
         #     "price": '20.00',
         #     "stock": self.product.stock,
         #     "available": True,
         #     "created_on": response.data['created_on'],
         #     "updated_on": response.data['updated_on'],
         #     "created_by": None,
-        #     "updated_by": self.user.id
+        #     "updated_by": None
         # }, indent=4, ensure_ascii=False)))
 
-
         self.assertEqual(response.data,
-            {
-                "id": response.data['id'],
-                "type": "product",
-                "catalog": self.catalog.id,
-                "name": 'shampoo',
-                "slug": 'shampoo',
-                "price": '20.00',
-                "stock": self.product.stock,
-                "available": True,
-                "created_on": response.data['created_on'],
-                "updated_on": response.data['updated_on'],
-                "created_by": None,
-                "updated_by": self.user.id
-            }
-         )
+                         {
+                             "id": response.data['id'],
+                             "type": "product",
+                             "catalog": self.catalog.id,
+                             "name": 'aaaaa',
+                             "slug": '',
+                             "price": '20.00',
+                             "stock": self.product.stock,
+                             "available": True,
+                             "created_on": response.data['created_on'],
+                             "updated_on": response.data['updated_on'],
+                             "created_by": None,
+                             "updated_by": None
+                         }
+                         )
         print(response.data)
 
 
