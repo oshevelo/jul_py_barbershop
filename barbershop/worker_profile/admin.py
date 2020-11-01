@@ -23,7 +23,7 @@ admin.site.register(WorkerProfile, WorkerProfileAdmin)
 
 
 class WorkerCommunicationsAdmin(admin.ModelAdmin):
-    list_display = ('worker_profile', 'type', 'created_on', 'updated_by')
+    list_display = ('worker_profile', 'social_network', 'created_on', 'updated_by')
     list_filter = ['created_on', 'updated_by']
 
 

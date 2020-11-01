@@ -24,25 +24,23 @@ class WorkerProfileDeleteAPITest(TestCase):
                                                    phone_number='+111111111111', email='test@gmail.com',
                                                    worker=self.user)
         self.worker_comm = WorkerCommunications.objects.create(worker_profile=self.worker,
-                                                               type=WorkerCommunications.Type.facebook_id,
+                                                               social_network=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
-    def test_worker_profile_and_comm_delete(self):
+    def test_worker_profile_delete(self):
         self.c.login(username='aa', password='aaa111')
         response = self.c.delete(
             '/worker_profile/worker_profile/{}/'.format(self.worker.id),
-            # data={
-            #     'id': self.user.id,
-            #     'first_name': 'test',
-            #     'second_name': 'testtestx',
-            #     'position': 'testbarber',
-            #     'phone_number': '+111111111111',
-            #     'email': 'test@gmail.com',
-            #     'worker': self.worker,
-            # },
-            # format='json'
         )
 
         dump.dump(response)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
+    def test_worker_communications_delete(self):
+        self.c.login(username='aa', password='aaa111')
+        response1 = self.c.delete(
+            '/worker_profile/worker_profile/worker_communications/{}/'.format(self.worker_comm.id)
+        )
+
+        dump.dump(response1)
+        self.assertEqual(response1.status_code, status.HTTP_204_NO_CONTENT)

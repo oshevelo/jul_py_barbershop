@@ -85,7 +85,7 @@ class WorkerCommunicationsListAPITest(TestCase):
                                                    phone_number='+111111111111', email='test@gmail.com',
                                                    worker=self.user1)
         self.worker_comm = WorkerCommunications.objects.create(worker_profile=self.worker,
-                                                               type=WorkerCommunications.Type.facebook_id,
+                                                               social_network=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
         user_kw2 = dict(
@@ -99,7 +99,7 @@ class WorkerCommunicationsListAPITest(TestCase):
                                                     phone_number='+222222222222', email='test2@gmail.com',
                                                     worker=self.user2)
         self.worker_comm2 = WorkerCommunications.objects.create(worker_profile=self.worker2,
-                                                                type=WorkerCommunications.Type.facebook_id,
+                                                                social_network=WorkerCommunications.Type.facebook_id,
                                                                 social_networks_ids='2222')
 
     def test_worker_communications_details_permission(self):

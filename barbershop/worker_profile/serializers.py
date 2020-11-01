@@ -22,4 +22,4 @@ class WorkerCommunicationsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkerCommunications
-        fields = ['id', 'worker_profile',  'type', 'social_networks_ids']
+        fields = ['id', 'worker_profile',  'social_network', 'social_networks_ids']

@@ -58,7 +58,7 @@ class WorkerCommunicationsListAPITest(TestCase):
         self.worker = WorkerProfile.objects.create(first_name='test', second_name='testtest', position='testbarber',
                                                    phone_number='+111111111111', email='test@gmail.com', worker=None)
         self.worker_comm = WorkerCommunications.objects.create(worker_profile=self.worker,
-                                                               type=WorkerCommunications.Type.facebook_id,
+                                                               social_network=WorkerCommunications.Type.facebook_id,
                                                                social_networks_ids='123')
 
     def test_worker_communications_list(self):
@@ -77,7 +77,7 @@ class WorkerCommunicationsListAPITest(TestCase):
                     {
                         "id": self.worker_comm.id,
                         "worker_profile": self.worker_comm.worker_profile.id,
-                        "type": self.worker_comm.type,
+                        "social_network": self.worker_comm.social_network,
                         "social_networks_ids": self.worker_comm.social_networks_ids
                     },
                 ]

@@ -60,7 +60,7 @@ class WorkerCommunicationsListAPITest(TestCase):
             '/worker_profile/worker_profile/worker_communications/',
             data={
                 "worker_profile": 1,
-                "type": WorkerCommunications.Type.facebook_id,
+                "social_network": WorkerCommunications.Type.facebook_id,
                 "social_networks_ids": "@asdsa"
             },
             format='json'

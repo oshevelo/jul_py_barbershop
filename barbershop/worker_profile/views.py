@@ -38,7 +38,7 @@ class WorkerCommunicationsList(generics.ListCreateAPIView):
     pagination_class = LimitOffsetPagination
 
 
-class WorkerCommunicationsDetails(generics.RetrieveUpdateAPIView):
+class WorkerCommunicationsDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WorkerCommunicationsSerializer
     permission_classes = [WorkerPermission]
 

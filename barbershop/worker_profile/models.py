@@ -31,7 +31,7 @@ class WorkerCommunications(WhoDidIt):
         (Type.other_id, 'Other id'),
     ]
 
-    type = models.CharField(
+    social_network = models.CharField(
         max_length=50,
         choices=TYPES,
         blank=True, null=True
