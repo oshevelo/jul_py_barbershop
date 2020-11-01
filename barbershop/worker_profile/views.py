@@ -43,4 +43,8 @@ class WorkerCommunicationsDetails(generics.RetrieveUpdateAPIView):
     permission_classes = [WorkerPermission]
 
     def get_object(self):
-        return get_object_or_404(WorkerCommunications, pk=self.kwargs.get('worker_profile_id'))
+        return get_object_or_404(
+            WorkerCommunications,
+            worker_profile__worker=self.request.user,
+            pk=self.kwargs.get('worker_profile_id')
+        )

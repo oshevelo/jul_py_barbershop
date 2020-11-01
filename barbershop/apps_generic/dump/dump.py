@@ -24,4 +24,8 @@ def dump(response):
         response.status_code,
         _dict_key_quotes(json.dumps(response.data, indent=4, ensure_ascii=False))
         if hasattr(response, 'data') else None
+<<<<<<< HEAD
     ))
+=======
+    ))
+>>>>>>> 91a5c4dd0b7a2aea6ff8177404ef741f0c44f89a
