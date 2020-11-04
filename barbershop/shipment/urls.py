@@ -15,11 +15,14 @@ Including another URLconf
 """
 
 from django.urls import path, include
+from . import views
 from .serializers import ShipmentSerializer
 from .models import Shipment
 from rest_framework import generics
 
 urlpatterns = [
-    path('novaposhta/', include('novaposhta.urls')),
-    path('shipmentlist', generics.ListCreateAPIView.as_view(queryset=Shipment.objects.all(), serializer_class=ShipmentSerializer), name='shipment_list'),
+    # path('novaposhta/', include('novaposhta.urls')),
+    path('shipment/', views.ShipmentList.as_view(), name='list'),
+    path('shipment/<int:catalog_id>/', views.ShipmentDetails.as_view(), name='details'),
+    path('shipmentlist/', generics.ListCreateAPIView.as_view(queryset=Shipment.objects.all(), serializer_class=ShipmentSerializer), name='Shipments List'),
 ]
