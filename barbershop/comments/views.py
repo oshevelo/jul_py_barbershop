@@ -1,8 +1,7 @@
-from rest_framework import viewsets, generics
-from django.contrib.auth.models import User
-from .models import Comment
+from rest_framework import generics
+from comments.models import Comment
 from django.shortcuts import get_object_or_404
-from .serializers import CommentSerializer
+from comments.serializers import CommentSerializer
 
 
 class CommentList(generics.ListCreateAPIView):

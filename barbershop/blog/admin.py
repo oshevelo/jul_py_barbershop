@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericStackedInline
 from comments.models import CommentItem
-from .models import Article, ArticleTag, TaggedArticle
+from blog.models import Article, ArticleTag, TaggedArticle
 
 
 class GenericCommentInline(GenericStackedInline):

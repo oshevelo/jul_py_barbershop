@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class Comment(WhoDidIt):
+    id = models.AutoField(unique=True, primary_key=True)
     text = models.TextField()
 
     def __str__(self):
@@ -12,6 +13,7 @@ class Comment(WhoDidIt):
     
 
 class CommentItem(models.Model):
+    # TODO: one to one key?
     comment_ptr = models.ForeignKey(
         to=Comment,
         on_delete=models.CASCADE,
@@ -34,5 +36,5 @@ class CommentItem(models.Model):
     )
 
     def __str__(self):
-        return 'CommentItem {}'.format(self.object_id)
+        return 'CommentItem[{}]: "{}"'.format(self.object_id, self.comment_ptr)
 

@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from .models import Comment, CommentItem
-from collections import OrderedDict
-from blog.models import Article
-import re
-import ast
-import datetime
+from comments.models import Comment, CommentItem
 from django.contrib.auth.models import User
+from comments.fields import ContentObjectRelatedField
+from blog.models import Article
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,6 +20,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
+            'id',
             'text',
             'created_by',
             'created_on',
@@ -33,59 +31,25 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class CommentItemSerializer(serializers.ModelSerializer):
     comment_ptr = CommentSerializer()
+    content_object = ContentObjectRelatedField(read_only=True)
     class Meta:
         model = CommentItem
         fields = [
-            'comment_ptr'
+            'comment_ptr',
+            'content_object'
         ]
 
+    def create(self, data):
+        """
+            Blog supported only
+        """
+        comment = Comment.objects.create(
+            text=data['comment_ptr']['text']
+        )
+        article = Article.objects.get(pk=self.context['view'].kwargs.get('article_id'))
+        comment_item = CommentItem.objects.create(
+            comment_ptr=comment,
+            content_object=article
+        )
+        return comment_item
 
-class CommentArticleRelatedSerializer(serializers.RelatedField):
-    queryset = Comment.objects.all()
-    
-    def to_representation(self, value):
-        if isinstance(value, Comment):
-            ret = []          
-            dct = CommentSerializer(value).data
-            for i in dct.keys():
-                ret.append((i, str(dct[i])))
-            return tuple(ret)
-        else:
-            data_list = []
-            for i in value.all():
-                data_list.append(CommentItemSerializer(i).data)
-            return data_list
-        # raise Exception('Unexpected type')
-
-    def to_internal_value(self, data):
-        # TODO: parser
-        # (
-        #   ('text', 'gav gav'), 
-        #   ('created_by', "OrderedDict([('username', 'Ivan'), ('email', '')])"), 
-        #   ('created_on', '2020-09-02T22:57:23.433397+03:00'), 
-        #   ('updated_by', "OrderedDict([('username', 'Ivan'), ('email', '')])"), 
-        #   ('updated_on', '2020-09-02T22:57:23.433557+03:00')
-        # )
-
-        # {
-        #   'text': 'gav gav',
-        #   'created_by': "OrderedDict([('username', 'Ivan'), ('email', '')])",
-        #   'created_on': '2020-09-02T22:57:23.433397+03:00'), 
-        #   'updated_by': "OrderedDict([('username', 'Ivan'), ('email', '')])", 
-        #   'updated_on': '2020-09-02T22:57:23.433557+03:00'
-        # }
-
-        # ret = ast.literal_eval(data)
-        # ret = OrderedDict(ret)
-        
-        print(data)
-        ret = {
-            'text': 'gav gav',
-            'created_by': OrderedDict([('username', 'Ivan'), ('email', '')]),
-            'created_on': datetime.datetime.strptime('2020-09-02T22:57:23.433397+0300', '%Y-%m-%dT%H:%M:%S.%f%z'), 
-            'updated_by': OrderedDict([('username', 'Ivan'), ('email', '')]), 
-            'updated_on': datetime.datetime.strptime('2020-09-02T22:57:23.433557+0300', '%Y-%m-%dT%H:%M:%S.%f%z')
-        }
-
-        return OrderedDict(ret)
-            
